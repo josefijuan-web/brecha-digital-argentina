@@ -72,7 +72,7 @@ El avance del proyecto se organiza con un tablero Kanban en GitHub Projects, con
 
 [Ver tablero del proyecto](https://github.com/users/josefijuan-web/projects/1/views/1)
 
-![Tablero Kanban del proyecto](img/tablero_kanban.png)
+![Tablero Kanban del proyecto](tablero_kanban.jpeg)
 
 ### Contacto
 
