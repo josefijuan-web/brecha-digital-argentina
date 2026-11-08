@@ -43,7 +43,6 @@ Un diagnóstico sobre hogares solo sirve si se puede confiar en cómo se trataro
 ### Alcance del servicio
 
 **Qué incluye:**
-
 - Limpieza y preparación de los datos (datos faltantes, respuestas "sin respuesta", recodificación).
 - Estadística descriptiva (media, mediana, desvío, percentiles) e histogramas.
 - Análisis de relaciones entre variables (tablas de contingencia y correlaciones).
@@ -51,7 +50,6 @@ Un diagnóstico sobre hogares solo sirve si se puede confiar en cómo se trataro
 - Presentación oral de 8 minutos con un máximo de 7 diapositivas.
 
 **Qué no incluye:**
-
 - Modelos predictivos ni machine learning.
 - Afirmaciones sobre causalidad: los datos permiten ver asociaciones, no demostrar causas.
 - Relevamiento de datos nuevos.
@@ -67,6 +65,14 @@ Un diagnóstico sobre hogares solo sirve si se puede confiar en cómo se trataro
 ### Herramientas
 
 Python, pandas, numpy, matplotlib, seaborn, scipy, Google Colab y GitHub.
+
+### Organización del proyecto (tablero Kanban)
+
+El avance del proyecto se organiza con un tablero Kanban en GitHub Projects, con las columnas **Por hacer**, **En proceso** y **Terminado**.
+
+[Ver tablero del proyecto](https://github.com/users/josefijuan-web/projects/1/views/1)
+
+![Tablero Kanban del proyecto](img/tablero_kanban.png)
 
 ### Contacto
 
