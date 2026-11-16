@@ -66,6 +66,77 @@ Un diagnóstico sobre hogares solo sirve si se puede confiar en cómo se trataro
 
 Python, pandas, numpy, matplotlib, seaborn, scipy, Google Colab y GitHub.
 
+### Estructura del repositorio
+
+- `data/` - bases de datos: `eph_tecnologia_microdatos.csv` (base original, 1.000 hogares) y `df_clean.csv` (base limpia, 937 hogares).
+- `notebooks/` - cuadernos de Google Colab con el análisis completo, comentados paso a paso.
+- `README.md` - esta presentación.
+
+### Cómo ejecutar el análisis
+
+No hace falta instalar nada: los cuadernos se ejecutan en **Google Colab**, que ya trae las librerías que se usan (pandas, numpy, matplotlib, seaborn y scipy).
+
+1. Entrar a [colab.research.google.com](https://colab.research.google.com) con una cuenta de Google.
+2. Abrir el cuaderno: **Archivo > Subir cuaderno** (se descarga el `.ipynb` desde la carpeta `notebooks/`) o **Archivo > Abrir cuaderno > GitHub** y pegar la dirección de este repositorio.
+3. Subir a Colab el archivo de datos que necesite el cuaderno (ícono de carpeta a la izquierda > subir archivo).
+4. Ejecutar las celdas **en orden** (botón de play o Shift + Enter).
+
+Orden de los cuadernos:
+
+| Orden | Cuaderno | Qué hace | Archivo de datos que usa |
+|---|---|---|---|
+| 1 | `Clase1_Exploracion_Colab.ipynb` | Explora la base: dimensiones, tipos de dato, datos faltantes y códigos de no respuesta | `eph_tecnologia_microdatos.csv` |
+| 2 | `Estadisticas_e_Histogramas_Colab.ipynb` | Estadísticas descriptivas e histogramas de la base original | `eph_tecnologia_microdatos.csv` |
+| 3 | `Limpieza_de_datos_Colab.ipynb` | Limpia y recodifica la base y genera `df_clean.csv` | `eph_tecnologia_microdatos.csv` |
+| 4 | `Analisis_bivariado_Colab.ipynb` | Estadísticas de la base limpia, cruces de variables y prueba de las tres hipótesis | `df_clean.csv` |
+
+Para ejecutarlos en una computadora propia: `pip install pandas numpy matplotlib seaborn scipy jupyter`.
+
+### Diccionario de variables
+
+**Base original** (`eph_tecnologia_microdatos.csv`):
+
+| Variable | Descripción | Tipo | Valores |
+|---|---|---|---|
+| `CODUSU` | Identificador anónimo del hogar | Texto | HOG_EPH_2026_0001 ... |
+| `REGION` | Región geográfica | Categórica | 1 GBA, 40 NOA, 41 NEA, 42 Cuyo, 43 Pampeana, 44 Patagonia |
+| `IX_TOT` | Cantidad de integrantes del hogar | Numérica | Personas |
+| `NIVEL_ED` | Nivel educativo del jefe/a de hogar | Categórica ordenada | 1 Primaria incompleta, 2 Primaria completa, 3 Secundaria incompleta, 4 Secundaria completa, 5 Superior/Universitario completo, 9 Sin respuesta |
+| `ITF` | Ingreso total familiar | Numérica | Pesos |
+| `DECIFR` | Decil de ingreso familiar | Categórica ordenada | 1 (más bajo) a 10 (más alto) |
+| `IV12_3` | ¿El hogar tiene computadora? | Categórica | 1 Sí, 2 No, 9 Sin respuesta |
+| `II7` | ¿El hogar tiene internet fija? | Categórica | 1 Sí, 2 No, 9 Sin respuesta |
+
+**Variables creadas en la limpieza** (`df_clean.csv`):
+
+| Variable | Descripción | Valores |
+|---|---|---|
+| `REGION_NOM` | Nombre de la región | GBA, NOA, NEA, Cuyo, Pampeana, Patagonia |
+| `NIVEL_ED_NOM` | Nombre del nivel educativo | Primaria incompleta ... Superior/Univ. completo |
+| `GRUPO_INGRESO` | Grupo de ingreso según el decil | Bajo (deciles 1-3), Medio (4-7), Alto (8-10) |
+| `TIENE_PC` | Tiene computadora | 1 Sí, 0 No |
+| `TIENE_INTERNET` | Tiene internet fija | 1 Sí, 0 No |
+
+En `df_clean.csv` los códigos 9 pasaron a ser datos faltantes y se eliminaron los 63 hogares sin dato de computadora o internet. El ingreso (`ITF`) y el nivel educativo (`NIVEL_ED`) conservan algunos datos faltantes (50 y 16) que no se imputaron.
+
+### Síntesis de hallazgos
+
+El 63,6 % de los hogares analizados tiene computadora y el 73,4 % tiene internet fija. Se pusieron a prueba tres hipótesis:
+
+| Hipótesis | Resultado | Evidencia |
+|---|---|---|
+| **H1:** a mayor nivel educativo, mayor acceso | **Se confirma** | Con primaria incompleta tiene computadora el 30 % de los hogares; con estudios superiores, el 92 % (p < 0,001) |
+| **H2:** a mayor ingreso, mayor acceso | **Se confirma** | Brecha entre el decil 10 y el decil 1: 54 puntos porcentuales en computadora y 37 en internet fija (p < 0,001) |
+| **H3:** a igual ingreso, NOA y NEA tienen menos internet fija que GBA | **Se rechaza** | El acceso a internet fija es de 72 % a 76 % en todas las regiones; las diferencias a igual ingreso no son significativas (p > 0,05) |
+
+**Principales conclusiones:**
+
+- La brecha digital se asocia, sobre todo, con el **ingreso** y el **nivel educativo**; en estos datos la región no la explica.
+- El **equipamiento** (computadoras) es más desigual que la conexión a internet.
+- Recomendación: focalizar las políticas de inclusión en los hogares de menores ingresos y menor nivel educativo, priorizando el acceso a computadoras.
+
+**Limitaciones:** los datos son de un solo momento y permiten ver asociaciones, no causas; solo miden el acceso material (no las habilidades digitales); y la base fue provista por la cátedra con fines académicos, por lo que los resultados no son estadísticas oficiales del INDEC. El detalle completo está en el informe técnico (PDF).
+
 ### Organización del proyecto (tablero Kanban)
 
 El avance del proyecto se organiza con un tablero Kanban en GitHub Projects, con las columnas **Por hacer**, **En proceso** y **Terminado**.
